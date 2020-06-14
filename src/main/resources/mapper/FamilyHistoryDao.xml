@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.df.drs.dao.FamilyHistoryDao">
+  <resultMap id="BaseResultMap" type="com.df.drs.model.entity.FamilyHistory">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="patient_id" jdbcType="VARCHAR" property="patientId" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="family_member" jdbcType="VARCHAR" property="familyMember" />
+    <result column="chromosomal_balanced_translocation" jdbcType="INTEGER" property="chromosomalBalancedTranslocation" />
+    <result column="monogenic_disease" jdbcType="INTEGER" property="monogenicDisease" />
+    <result column="chromosome_abnormalities" jdbcType="INTEGER" property="chromosomeAbnormalities" />
+    <result column="Infertility_history" jdbcType="INTEGER" property="infertilityHistory" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delflag" jdbcType="INTEGER" property="delflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_id, gender, family_member, chromosomal_balanced_translocation, monogenic_disease, 
+    chromosome_abnormalities, Infertility_history, detail, create_user, create_time, 
+    update_user, update_time, delflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from family_history
+    where id = #{id,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <select id="selectByPatientId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from family_history
+    where patient_id = #{patientId,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update family_history
+    set delflag = 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="batchDelete" parameterType="list">
+    update family_history
+    set delflag = 1, update_time = now()
+    where id in
+    <foreach collection="ids" item="val" index="index" separator="," close=")" open="(">
+      #{val}
+    </foreach>
+  </update>
+  <insert id="insert" parameterType="com.df.drs.model.entity.FamilyHistory">
+    insert into family_history (id, patient_id, gender, family_member,
+      chromosomal_balanced_translocation, monogenic_disease, 
+      chromosome_abnormalities, Infertility_history, 
+      detail, create_user, create_time, 
+      update_user, update_time, delflag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{familyMember,jdbcType=VARCHAR},
+      #{chromosomalBalancedTranslocation,jdbcType=INTEGER}, #{monogenicDisease,jdbcType=INTEGER}, 
+      #{chromosomeAbnormalities,jdbcType=INTEGER}, #{infertilityHistory,jdbcType=INTEGER}, 
+      #{detail,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{delflag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.df.drs.model.entity.FamilyHistory">
+    insert into family_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="familyMember != null">
+        family_member,
+      </if>
+      <if test="chromosomalBalancedTranslocation != null">
+        chromosomal_balanced_translocation,
+      </if>
+      <if test="monogenicDisease != null">
+        monogenic_disease,
+      </if>
+      <if test="chromosomeAbnormalities != null">
+        chromosome_abnormalities,
+      </if>
+      <if test="infertilityHistory != null">
+        Infertility_history,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delflag != null">
+        delflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="familyMember != null">
+        #{familyMember,jdbcType=VARCHAR},
+      </if>
+      <if test="chromosomalBalancedTranslocation != null">
+        #{chromosomalBalancedTranslocation,jdbcType=INTEGER},
+      </if>
+      <if test="monogenicDisease != null">
+        #{monogenicDisease,jdbcType=INTEGER},
+      </if>
+      <if test="chromosomeAbnormalities != null">
+        #{chromosomeAbnormalities,jdbcType=INTEGER},
+      </if>
+      <if test="infertilityHistory != null">
+        #{infertilityHistory,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.df.drs.model.entity.FamilyHistory">
+    update family_history
+    <set>
+      <if test="patientId != null">
+        patient_id = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="familyMember != null">
+        family_member = #{familyMember,jdbcType=VARCHAR},
+      </if>
+      <if test="chromosomalBalancedTranslocation != null">
+        chromosomal_balanced_translocation = #{chromosomalBalancedTranslocation,jdbcType=INTEGER},
+      </if>
+      <if test="monogenicDisease != null">
+        monogenic_disease = #{monogenicDisease,jdbcType=INTEGER},
+      </if>
+      <if test="chromosomeAbnormalities != null">
+        chromosome_abnormalities = #{chromosomeAbnormalities,jdbcType=INTEGER},
+      </if>
+      <if test="infertilityHistory != null">
+        Infertility_history = #{infertilityHistory,jdbcType=INTEGER},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.df.drs.model.entity.FamilyHistory">
+    update family_history
+    set patient_id = #{patientId,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      family_member = #{familyMember,jdbcType=VARCHAR},
+      chromosomal_balanced_translocation = #{chromosomalBalancedTranslocation,jdbcType=INTEGER},
+      monogenic_disease = #{monogenicDisease,jdbcType=INTEGER},
+      chromosome_abnormalities = #{chromosomeAbnormalities,jdbcType=INTEGER},
+      Infertility_history = #{infertilityHistory,jdbcType=INTEGER},
+      detail = #{detail,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delflag = #{delflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

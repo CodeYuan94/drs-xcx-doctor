@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.df.drs.dao.MenstruationHistoryDao">
+  <resultMap id="BaseResultMap" type="com.df.drs.model.entity.MenstruationHistory">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="menarche" jdbcType="INTEGER" property="menarche" />
+    <result column="mens_amount" jdbcType="INTEGER" property="mensAmount" />
+    <result column="dysmenorrhea" jdbcType="INTEGER" property="dysmenorrhea" />
+    <result column="coital_pain" jdbcType="INTEGER" property="coitalPain" />
+    <result column="last_mens_first_day" jdbcType="TIMESTAMP" property="lastMensFirstDay" />
+    <result column="mens_cycle_min" jdbcType="INTEGER" property="mensCycleMin" />
+    <result column="mens_cycle_max" jdbcType="INTEGER" property="mensCycleMax" />
+    <result column="mens_period_min" jdbcType="INTEGER" property="mensPeriodMin" />
+    <result column="mens_period_max" jdbcType="INTEGER" property="mensPeriodMax" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="delflag" jdbcType="INTEGER" property="delflag" />
+    <result column="patient_id" jdbcType="VARCHAR" property="patientId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, menarche, mens_amount, dysmenorrhea, coital_pain, last_mens_first_day, mens_cycle_min, 
+    mens_cycle_max, mens_period_min, mens_period_max, create_time, update_time, create_user, 
+    update_user, delflag, patient_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menstruation_history
+    where id = #{id,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <select id="selectByPatientId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from menstruation_history
+    where patient_id = #{patient_id,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update menstruation_history
+    set delflag = 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.df.drs.model.entity.MenstruationHistory">
+    insert into menstruation_history (id, menarche, mens_amount, dysmenorrhea,
+      coital_pain, last_mens_first_day, mens_cycle_min, 
+      mens_cycle_max, mens_period_min, mens_period_max, 
+      create_time, update_time, create_user, 
+      update_user, delflag, patient_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{menarche,jdbcType=INTEGER}, #{mensAmount,jdbcType=INTEGER}, #{dysmenorrhea,jdbcType=INTEGER},
+      #{coitalPain,jdbcType=INTEGER}, #{lastMensFirstDay,jdbcType=TIMESTAMP}, #{mensCycleMin,jdbcType=INTEGER}, 
+      #{mensCycleMax,jdbcType=INTEGER}, #{mensPeriodMin,jdbcType=INTEGER}, #{mensPeriodMax,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}, #{delflag,jdbcType=INTEGER}, #{patientId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.df.drs.model.entity.MenstruationHistory">
+    insert into menstruation_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="menarche != null">
+        menarche,
+      </if>
+      <if test="mensAmount != null">
+        mens_amount,
+      </if>
+      <if test="dysmenorrhea != null">
+        dysmenorrhea,
+      </if>
+      <if test="coitalPain != null">
+        coital_pain,
+      </if>
+      <if test="lastMensFirstDay != null">
+        last_mens_first_day,
+      </if>
+      <if test="mensCycleMin != null">
+        mens_cycle_min,
+      </if>
+      <if test="mensCycleMax != null">
+        mens_cycle_max,
+      </if>
+      <if test="mensPeriodMin != null">
+        mens_period_min,
+      </if>
+      <if test="mensPeriodMax != null">
+        mens_period_max,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="delflag != null">
+        delflag,
+      </if>
+      <if test="patientId != null">
+        patient_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="menarche != null">
+        #{menarche,jdbcType=INTEGER},
+      </if>
+      <if test="mensAmount != null">
+        #{mensAmount,jdbcType=INTEGER},
+      </if>
+      <if test="dysmenorrhea != null">
+        #{dysmenorrhea,jdbcType=INTEGER},
+      </if>
+      <if test="coitalPain != null">
+        #{coitalPain,jdbcType=INTEGER},
+      </if>
+      <if test="lastMensFirstDay != null">
+        #{lastMensFirstDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mensCycleMin != null">
+        #{mensCycleMin,jdbcType=INTEGER},
+      </if>
+      <if test="mensCycleMax != null">
+        #{mensCycleMax,jdbcType=INTEGER},
+      </if>
+      <if test="mensPeriodMin != null">
+        #{mensPeriodMin,jdbcType=INTEGER},
+      </if>
+      <if test="mensPeriodMax != null">
+        #{mensPeriodMax,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.df.drs.model.entity.MenstruationHistory">
+    update menstruation_history
+    <set>
+      <if test="menarche != null">
+        menarche = #{menarche,jdbcType=INTEGER},
+      </if>
+      <if test="mensAmount != null">
+        mens_amount = #{mensAmount,jdbcType=INTEGER},
+      </if>
+      <if test="dysmenorrhea != null">
+        dysmenorrhea = #{dysmenorrhea,jdbcType=INTEGER},
+      </if>
+      <if test="coitalPain != null">
+        coital_pain = #{coitalPain,jdbcType=INTEGER},
+      </if>
+      <if test="lastMensFirstDay != null">
+        last_mens_first_day = #{lastMensFirstDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mensCycleMin != null">
+        mens_cycle_min = #{mensCycleMin,jdbcType=INTEGER},
+      </if>
+      <if test="mensCycleMax != null">
+        mens_cycle_max = #{mensCycleMax,jdbcType=INTEGER},
+      </if>
+      <if test="mensPeriodMin != null">
+        mens_period_min = #{mensPeriodMin,jdbcType=INTEGER},
+      </if>
+      <if test="mensPeriodMax != null">
+        mens_period_max = #{mensPeriodMax,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="patientId != null">
+        patient_id = #{patientId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.df.drs.model.entity.MenstruationHistory">
+    update menstruation_history
+    set menarche = #{menarche,jdbcType=INTEGER},
+      mens_amount = #{mensAmount,jdbcType=INTEGER},
+      dysmenorrhea = #{dysmenorrhea,jdbcType=INTEGER},
+      coital_pain = #{coitalPain,jdbcType=INTEGER},
+      last_mens_first_day = #{lastMensFirstDay,jdbcType=TIMESTAMP},
+      mens_cycle_min = #{mensCycleMin,jdbcType=INTEGER},
+      mens_cycle_max = #{mensCycleMax,jdbcType=INTEGER},
+      mens_period_min = #{mensPeriodMin,jdbcType=INTEGER},
+      mens_period_max = #{mensPeriodMax,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      delflag = #{delflag,jdbcType=INTEGER},
+      patient_id = #{patientId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

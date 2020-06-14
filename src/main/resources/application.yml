@@ -1,0 +1,57 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/drs?autoCommit=true&autoReconnect=true&connectionCollation=utf8mb4_general_ci&characterEncoding=UTF-8&useSSL=false&roundRobinLoadBalance=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    dbcp2:
+      max-idle: 5
+      min-idle: 1
+      initial-size: 3
+      max-wait-millis: 10000
+      validation-query: select 1
+      test-while-idle: true
+      time-between-eviction-runs-millis: 300000
+  #数据库事务
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    serialization:
+      indent_output: true
+
+  thymeleaf:
+    cache: false
+
+mybatis:
+  type-aliases-package: com.df.drs.model.entity
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+##找的 注释掉了一句
+#mybatis-plus:
+#  mapper-locations: classpath:/mapper/*.xml
+##  config-location: classpath:sqlmapConfig-admin-mybatis.xml
+
+
+
+
+
+# 日志配置 打印在相对位置
+logging:
+  # 在log文件夹下生成demo02.log 日志文件
+  #  file: log/demo02.log
+  #在log/myLog文件夹下生成spring.log日志文件
+  file:
+    path: log/myLog
+  level:
+    com.df.drs: debug
+    root: warn
+  config: classpath:logging-config.xml

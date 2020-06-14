@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.df.drs.dao.MarriageHistoryDao">
+  <resultMap id="BaseResultMap" type="com.df.drs.model.entity.MarriageHistory">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="patient_id" jdbcType="VARCHAR" property="patientId" />
+    <result column="female_marriage_history" jdbcType="INTEGER" property="femaleMarriageHistory" />
+    <result column="unpregnant_year" jdbcType="INTEGER" property="unpregnantYear" />
+    <result column="marriage_age" jdbcType="TIMESTAMP" property="marriageAge" />
+    <result column="last_gestation" jdbcType="TIMESTAMP" property="lastGestation" />
+    <result column="term_birth" jdbcType="INTEGER" property="termBirth" />
+    <result column="premature_birth" jdbcType="INTEGER" property="prematureBirth" />
+    <result column="embryo_discontinuation" jdbcType="INTEGER" property="embryoDiscontinuation" />
+    <result column="spontaneous_abortion" jdbcType="INTEGER" property="spontaneousAbortion" />
+    <result column="artificial_abortion" jdbcType="INTEGER" property="artificialAbortion" />
+    <result column="biochemical_pregnancy" jdbcType="INTEGER" property="biochemicalPregnancy" />
+    <result column="induced_labour" jdbcType="INTEGER" property="inducedLabour" />
+    <result column="vectopic_pregnancy" jdbcType="INTEGER" property="vectopicPregnancy" />
+    <result column="existing_children" jdbcType="INTEGER" property="existingChildren" />
+    <result column="female_remarks" jdbcType="VARCHAR" property="femaleRemarks" />
+    <result column="male_marriage_history" jdbcType="INTEGER" property="maleMarriageHistory" />
+    <result column="male_fertility_history" jdbcType="INTEGER" property="maleFertilityHistory" />
+    <result column="male_remarks" jdbcType="VARCHAR" property="maleRemarks" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="delflag" jdbcType="INTEGER" property="delflag" />
+    <result column="unpregnant_month" jdbcType="INTEGER" property="unpregnantMonth" />
+    <result column="ex_term_birth" jdbcType="INTEGER" property="exTermBirth" />
+    <result column="ex_premature_birth" jdbcType="INTEGER" property="exPrematureBirth" />
+    <result column="ex_embryo_discontinuation" jdbcType="INTEGER" property="exEmbryoDiscontinuation" />
+    <result column="ex_spontaneous_abortion" jdbcType="INTEGER" property="exSpontaneousAbortion" />
+    <result column="ex_artificial_abortion" jdbcType="INTEGER" property="exArtificialAbortion" />
+    <result column="ex_biochemical_pregnancy" jdbcType="INTEGER" property="exBiochemicalPregnancy" />
+    <result column="ex_induced_labour" jdbcType="INTEGER" property="exInducedLabour" />
+    <result column="ex_vectopic_pregnancy" jdbcType="INTEGER" property="exVectopicPregnancy" />
+    <result column="ex_existing_children" jdbcType="INTEGER" property="exExistingChildren" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_id, female_marriage_history, unpregnant_year, marriage_age, last_gestation, 
+    term_birth, premature_birth, embryo_discontinuation, spontaneous_abortion, artificial_abortion, 
+    biochemical_pregnancy, induced_labour, vectopic_pregnancy, existing_children, female_remarks, 
+    male_marriage_history, male_fertility_history, male_remarks, create_time, update_time, 
+    create_user, update_user, delflag, unpregnant_month, ex_term_birth, ex_premature_birth, 
+    ex_embryo_discontinuation, ex_spontaneous_abortion, ex_artificial_abortion, ex_biochemical_pregnancy, 
+    ex_induced_labour, ex_vectopic_pregnancy, ex_existing_children
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from marriage_history
+    where id = #{id,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <select id="selectByPatientId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from marriage_history
+    where patient_id = #{patientId,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update marriage_history
+    set delflag = 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.df.drs.model.entity.MarriageHistory">
+    insert into marriage_history (id, patient_id, female_marriage_history,
+      unpregnant_year, marriage_age, last_gestation, 
+      term_birth, premature_birth, embryo_discontinuation, 
+      spontaneous_abortion, artificial_abortion, 
+      biochemical_pregnancy, induced_labour, vectopic_pregnancy, 
+      existing_children, female_remarks, male_marriage_history, 
+      male_fertility_history, male_remarks, create_time, 
+      update_time, create_user, update_user, 
+      delflag, unpregnant_month, ex_term_birth, 
+      ex_premature_birth, ex_embryo_discontinuation, 
+      ex_spontaneous_abortion, ex_artificial_abortion, 
+      ex_biochemical_pregnancy, ex_induced_labour, 
+      ex_vectopic_pregnancy, ex_existing_children
+      )
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{femaleMarriageHistory,jdbcType=INTEGER},
+      #{unpregnantYear,jdbcType=INTEGER}, #{marriageAge,jdbcType=TIMESTAMP}, #{lastGestation,jdbcType=TIMESTAMP}, 
+      #{termBirth,jdbcType=INTEGER}, #{prematureBirth,jdbcType=INTEGER}, #{embryoDiscontinuation,jdbcType=INTEGER}, 
+      #{spontaneousAbortion,jdbcType=INTEGER}, #{artificialAbortion,jdbcType=INTEGER}, 
+      #{biochemicalPregnancy,jdbcType=INTEGER}, #{inducedLabour,jdbcType=INTEGER}, #{vectopicPregnancy,jdbcType=INTEGER}, 
+      #{existingChildren,jdbcType=INTEGER}, #{femaleRemarks,jdbcType=VARCHAR}, #{maleMarriageHistory,jdbcType=INTEGER}, 
+      #{maleFertilityHistory,jdbcType=INTEGER}, #{maleRemarks,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{delflag,jdbcType=INTEGER}, #{unpregnantMonth,jdbcType=INTEGER}, #{exTermBirth,jdbcType=INTEGER}, 
+      #{exPrematureBirth,jdbcType=INTEGER}, #{exEmbryoDiscontinuation,jdbcType=INTEGER}, 
+      #{exSpontaneousAbortion,jdbcType=INTEGER}, #{exArtificialAbortion,jdbcType=INTEGER}, 
+      #{exBiochemicalPregnancy,jdbcType=INTEGER}, #{exInducedLabour,jdbcType=INTEGER}, 
+      #{exVectopicPregnancy,jdbcType=INTEGER}, #{exExistingChildren,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.df.drs.model.entity.MarriageHistory">
+    insert into marriage_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="femaleMarriageHistory != null">
+        female_marriage_history,
+      </if>
+      <if test="unpregnantYear != null">
+        unpregnant_year,
+      </if>
+      <if test="marriageAge != null">
+        marriage_age,
+      </if>
+      <if test="lastGestation != null">
+        last_gestation,
+      </if>
+      <if test="termBirth != null">
+        term_birth,
+      </if>
+      <if test="prematureBirth != null">
+        premature_birth,
+      </if>
+      <if test="embryoDiscontinuation != null">
+        embryo_discontinuation,
+      </if>
+      <if test="spontaneousAbortion != null">
+        spontaneous_abortion,
+      </if>
+      <if test="artificialAbortion != null">
+        artificial_abortion,
+      </if>
+      <if test="biochemicalPregnancy != null">
+        biochemical_pregnancy,
+      </if>
+      <if test="inducedLabour != null">
+        induced_labour,
+      </if>
+      <if test="vectopicPregnancy != null">
+        vectopic_pregnancy,
+      </if>
+      <if test="existingChildren != null">
+        existing_children,
+      </if>
+      <if test="femaleRemarks != null">
+        female_remarks,
+      </if>
+      <if test="maleMarriageHistory != null">
+        male_marriage_history,
+      </if>
+      <if test="maleFertilityHistory != null">
+        male_fertility_history,
+      </if>
+      <if test="maleRemarks != null">
+        male_remarks,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="delflag != null">
+        delflag,
+      </if>
+      <if test="unpregnantMonth != null">
+        unpregnant_month,
+      </if>
+      <if test="exTermBirth != null">
+        ex_term_birth,
+      </if>
+      <if test="exPrematureBirth != null">
+        ex_premature_birth,
+      </if>
+      <if test="exEmbryoDiscontinuation != null">
+        ex_embryo_discontinuation,
+      </if>
+      <if test="exSpontaneousAbortion != null">
+        ex_spontaneous_abortion,
+      </if>
+      <if test="exArtificialAbortion != null">
+        ex_artificial_abortion,
+      </if>
+      <if test="exBiochemicalPregnancy != null">
+        ex_biochemical_pregnancy,
+      </if>
+      <if test="exInducedLabour != null">
+        ex_induced_labour,
+      </if>
+      <if test="exVectopicPregnancy != null">
+        ex_vectopic_pregnancy,
+      </if>
+      <if test="exExistingChildren != null">
+        ex_existing_children,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="femaleMarriageHistory != null">
+        #{femaleMarriageHistory,jdbcType=INTEGER},
+      </if>
+      <if test="unpregnantYear != null">
+        #{unpregnantYear,jdbcType=INTEGER},
+      </if>
+      <if test="marriageAge != null">
+        #{marriageAge,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastGestation != null">
+        #{lastGestation,jdbcType=TIMESTAMP},
+      </if>
+      <if test="termBirth != null">
+        #{termBirth,jdbcType=INTEGER},
+      </if>
+      <if test="prematureBirth != null">
+        #{prematureBirth,jdbcType=INTEGER},
+      </if>
+      <if test="embryoDiscontinuation != null">
+        #{embryoDiscontinuation,jdbcType=INTEGER},
+      </if>
+      <if test="spontaneousAbortion != null">
+        #{spontaneousAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="artificialAbortion != null">
+        #{artificialAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="biochemicalPregnancy != null">
+        #{biochemicalPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="inducedLabour != null">
+        #{inducedLabour,jdbcType=INTEGER},
+      </if>
+      <if test="vectopicPregnancy != null">
+        #{vectopicPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="existingChildren != null">
+        #{existingChildren,jdbcType=INTEGER},
+      </if>
+      <if test="femaleRemarks != null">
+        #{femaleRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="maleMarriageHistory != null">
+        #{maleMarriageHistory,jdbcType=INTEGER},
+      </if>
+      <if test="maleFertilityHistory != null">
+        #{maleFertilityHistory,jdbcType=INTEGER},
+      </if>
+      <if test="maleRemarks != null">
+        #{maleRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="unpregnantMonth != null">
+        #{unpregnantMonth,jdbcType=INTEGER},
+      </if>
+      <if test="exTermBirth != null">
+        #{exTermBirth,jdbcType=INTEGER},
+      </if>
+      <if test="exPrematureBirth != null">
+        #{exPrematureBirth,jdbcType=INTEGER},
+      </if>
+      <if test="exEmbryoDiscontinuation != null">
+        #{exEmbryoDiscontinuation,jdbcType=INTEGER},
+      </if>
+      <if test="exSpontaneousAbortion != null">
+        #{exSpontaneousAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="exArtificialAbortion != null">
+        #{exArtificialAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="exBiochemicalPregnancy != null">
+        #{exBiochemicalPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="exInducedLabour != null">
+        #{exInducedLabour,jdbcType=INTEGER},
+      </if>
+      <if test="exVectopicPregnancy != null">
+        #{exVectopicPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="exExistingChildren != null">
+        #{exExistingChildren,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.df.drs.model.entity.MarriageHistory">
+    update marriage_history
+    <set>
+      <if test="patientId != null">
+        patient_id = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="femaleMarriageHistory != null">
+        female_marriage_history = #{femaleMarriageHistory,jdbcType=INTEGER},
+      </if>
+      <if test="unpregnantYear != null">
+        unpregnant_year = #{unpregnantYear,jdbcType=INTEGER},
+      </if>
+      <if test="marriageAge != null">
+        marriage_age = #{marriageAge,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastGestation != null">
+        last_gestation = #{lastGestation,jdbcType=TIMESTAMP},
+      </if>
+      <if test="termBirth != null">
+        term_birth = #{termBirth,jdbcType=INTEGER},
+      </if>
+      <if test="prematureBirth != null">
+        premature_birth = #{prematureBirth,jdbcType=INTEGER},
+      </if>
+      <if test="embryoDiscontinuation != null">
+        embryo_discontinuation = #{embryoDiscontinuation,jdbcType=INTEGER},
+      </if>
+      <if test="spontaneousAbortion != null">
+        spontaneous_abortion = #{spontaneousAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="artificialAbortion != null">
+        artificial_abortion = #{artificialAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="biochemicalPregnancy != null">
+        biochemical_pregnancy = #{biochemicalPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="inducedLabour != null">
+        induced_labour = #{inducedLabour,jdbcType=INTEGER},
+      </if>
+      <if test="vectopicPregnancy != null">
+        vectopic_pregnancy = #{vectopicPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="existingChildren != null">
+        existing_children = #{existingChildren,jdbcType=INTEGER},
+      </if>
+      <if test="femaleRemarks != null">
+        female_remarks = #{femaleRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="maleMarriageHistory != null">
+        male_marriage_history = #{maleMarriageHistory,jdbcType=INTEGER},
+      </if>
+      <if test="maleFertilityHistory != null">
+        male_fertility_history = #{maleFertilityHistory,jdbcType=INTEGER},
+      </if>
+      <if test="maleRemarks != null">
+        male_remarks = #{maleRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="unpregnantMonth != null">
+        unpregnant_month = #{unpregnantMonth,jdbcType=INTEGER},
+      </if>
+      <if test="exTermBirth != null">
+        ex_term_birth = #{exTermBirth,jdbcType=INTEGER},
+      </if>
+      <if test="exPrematureBirth != null">
+        ex_premature_birth = #{exPrematureBirth,jdbcType=INTEGER},
+      </if>
+      <if test="exEmbryoDiscontinuation != null">
+        ex_embryo_discontinuation = #{exEmbryoDiscontinuation,jdbcType=INTEGER},
+      </if>
+      <if test="exSpontaneousAbortion != null">
+        ex_spontaneous_abortion = #{exSpontaneousAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="exArtificialAbortion != null">
+        ex_artificial_abortion = #{exArtificialAbortion,jdbcType=INTEGER},
+      </if>
+      <if test="exBiochemicalPregnancy != null">
+        ex_biochemical_pregnancy = #{exBiochemicalPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="exInducedLabour != null">
+        ex_induced_labour = #{exInducedLabour,jdbcType=INTEGER},
+      </if>
+      <if test="exVectopicPregnancy != null">
+        ex_vectopic_pregnancy = #{exVectopicPregnancy,jdbcType=INTEGER},
+      </if>
+      <if test="exExistingChildren != null">
+        ex_existing_children = #{exExistingChildren,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.df.drs.model.entity.MarriageHistory">
+    update marriage_history
+    set patient_id = #{patientId,jdbcType=VARCHAR},
+      female_marriage_history = #{femaleMarriageHistory,jdbcType=INTEGER},
+      unpregnant_year = #{unpregnantYear,jdbcType=INTEGER},
+      marriage_age = #{marriageAge,jdbcType=TIMESTAMP},
+      last_gestation = #{lastGestation,jdbcType=TIMESTAMP},
+      term_birth = #{termBirth,jdbcType=INTEGER},
+      premature_birth = #{prematureBirth,jdbcType=INTEGER},
+      embryo_discontinuation = #{embryoDiscontinuation,jdbcType=INTEGER},
+      spontaneous_abortion = #{spontaneousAbortion,jdbcType=INTEGER},
+      artificial_abortion = #{artificialAbortion,jdbcType=INTEGER},
+      biochemical_pregnancy = #{biochemicalPregnancy,jdbcType=INTEGER},
+      induced_labour = #{inducedLabour,jdbcType=INTEGER},
+      vectopic_pregnancy = #{vectopicPregnancy,jdbcType=INTEGER},
+      existing_children = #{existingChildren,jdbcType=INTEGER},
+      female_remarks = #{femaleRemarks,jdbcType=VARCHAR},
+      male_marriage_history = #{maleMarriageHistory,jdbcType=INTEGER},
+      male_fertility_history = #{maleFertilityHistory,jdbcType=INTEGER},
+      male_remarks = #{maleRemarks,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      delflag = #{delflag,jdbcType=INTEGER},
+      unpregnant_month = #{unpregnantMonth,jdbcType=INTEGER},
+      ex_term_birth = #{exTermBirth,jdbcType=INTEGER},
+      ex_premature_birth = #{exPrematureBirth,jdbcType=INTEGER},
+      ex_embryo_discontinuation = #{exEmbryoDiscontinuation,jdbcType=INTEGER},
+      ex_spontaneous_abortion = #{exSpontaneousAbortion,jdbcType=INTEGER},
+      ex_artificial_abortion = #{exArtificialAbortion,jdbcType=INTEGER},
+      ex_biochemical_pregnancy = #{exBiochemicalPregnancy,jdbcType=INTEGER},
+      ex_induced_labour = #{exInducedLabour,jdbcType=INTEGER},
+      ex_vectopic_pregnancy = #{exVectopicPregnancy,jdbcType=INTEGER},
+      ex_existing_children = #{exExistingChildren,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

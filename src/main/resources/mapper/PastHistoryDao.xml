@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.df.drs.dao.PastHistoryDao">
+  <resultMap id="BaseResultMap" type="com.df.drs.model.entity.PastHistory">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="patient_id" jdbcType="VARCHAR" property="patientId" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="hepatitis" jdbcType="INTEGER" property="hepatitis" />
+    <result column="tuberculosis" jdbcType="INTEGER" property="tuberculosis" />
+    <result column="kidney_disease" jdbcType="INTEGER" property="kidneyDisease" />
+    <result column="cardiovascular_disease" jdbcType="INTEGER" property="cardiovascularDisease" />
+    <result column="urinary_tract_infection" jdbcType="INTEGER" property="urinaryTractInfection" />
+    <result column="sexually_transmitted_disease_history" jdbcType="INTEGER" property="sexuallyTransmittedDiseaseHistory" />
+    <result column="appendicitis" jdbcType="INTEGER" property="appendicitis" />
+    <result column="pelvic_infection" jdbcType="INTEGER" property="pelvicInfection" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delflag" jdbcType="INTEGER" property="delflag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_id, gender, hepatitis, tuberculosis, kidney_disease, cardiovascular_disease, 
+    urinary_tract_infection, sexually_transmitted_disease_history, appendicitis, pelvic_infection, 
+    remarks, create_user, create_time, update_user, update_time, delflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from past_history
+    where id = #{id,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <select id="selectByPatientId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from past_history
+    where patient_id = #{patient_id,id,jdbcType=VARCHAR} and delflag = 0
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update past_history
+    set delflag = 1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.df.drs.model.entity.PastHistory">
+    insert into past_history (id, patient_id, gender, hepatitis,
+      tuberculosis, kidney_disease, cardiovascular_disease, 
+      urinary_tract_infection, sexually_transmitted_disease_history, 
+      appendicitis, pelvic_infection, remarks, 
+      create_user, create_time, update_user, 
+      update_time, delflag)
+    values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{hepatitis,jdbcType=INTEGER},
+      #{tuberculosis,jdbcType=INTEGER}, #{kidneyDisease,jdbcType=INTEGER}, #{cardiovascularDisease,jdbcType=INTEGER}, 
+      #{urinaryTractInfection,jdbcType=INTEGER}, #{sexuallyTransmittedDiseaseHistory,jdbcType=INTEGER}, 
+      #{appendicitis,jdbcType=INTEGER}, #{pelvicInfection,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{delflag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.df.drs.model.entity.PastHistory">
+    insert into past_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="hepatitis != null">
+        hepatitis,
+      </if>
+      <if test="tuberculosis != null">
+        tuberculosis,
+      </if>
+      <if test="kidneyDisease != null">
+        kidney_disease,
+      </if>
+      <if test="cardiovascularDisease != null">
+        cardiovascular_disease,
+      </if>
+      <if test="urinaryTractInfection != null">
+        urinary_tract_infection,
+      </if>
+      <if test="sexuallyTransmittedDiseaseHistory != null">
+        sexually_transmitted_disease_history,
+      </if>
+      <if test="appendicitis != null">
+        appendicitis,
+      </if>
+      <if test="pelvicInfection != null">
+        pelvic_infection,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="delflag != null">
+        delflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="patientId != null">
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="hepatitis != null">
+        #{hepatitis,jdbcType=INTEGER},
+      </if>
+      <if test="tuberculosis != null">
+        #{tuberculosis,jdbcType=INTEGER},
+      </if>
+      <if test="kidneyDisease != null">
+        #{kidneyDisease,jdbcType=INTEGER},
+      </if>
+      <if test="cardiovascularDisease != null">
+        #{cardiovascularDisease,jdbcType=INTEGER},
+      </if>
+      <if test="urinaryTractInfection != null">
+        #{urinaryTractInfection,jdbcType=INTEGER},
+      </if>
+      <if test="sexuallyTransmittedDiseaseHistory != null">
+        #{sexuallyTransmittedDiseaseHistory,jdbcType=INTEGER},
+      </if>
+      <if test="appendicitis != null">
+        #{appendicitis,jdbcType=INTEGER},
+      </if>
+      <if test="pelvicInfection != null">
+        #{pelvicInfection,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.df.drs.model.entity.PastHistory">
+    update past_history
+    <set>
+      <if test="patientId != null">
+        patient_id = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="hepatitis != null">
+        hepatitis = #{hepatitis,jdbcType=INTEGER},
+      </if>
+      <if test="tuberculosis != null">
+        tuberculosis = #{tuberculosis,jdbcType=INTEGER},
+      </if>
+      <if test="kidneyDisease != null">
+        kidney_disease = #{kidneyDisease,jdbcType=INTEGER},
+      </if>
+      <if test="cardiovascularDisease != null">
+        cardiovascular_disease = #{cardiovascularDisease,jdbcType=INTEGER},
+      </if>
+      <if test="urinaryTractInfection != null">
+        urinary_tract_infection = #{urinaryTractInfection,jdbcType=INTEGER},
+      </if>
+      <if test="sexuallyTransmittedDiseaseHistory != null">
+        sexually_transmitted_disease_history = #{sexuallyTransmittedDiseaseHistory,jdbcType=INTEGER},
+      </if>
+      <if test="appendicitis != null">
+        appendicitis = #{appendicitis,jdbcType=INTEGER},
+      </if>
+      <if test="pelvicInfection != null">
+        pelvic_infection = #{pelvicInfection,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.df.drs.model.entity.PastHistory">
+    update past_history
+    set patient_id = #{patientId,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      hepatitis = #{hepatitis,jdbcType=INTEGER},
+      tuberculosis = #{tuberculosis,jdbcType=INTEGER},
+      kidney_disease = #{kidneyDisease,jdbcType=INTEGER},
+      cardiovascular_disease = #{cardiovascularDisease,jdbcType=INTEGER},
+      urinary_tract_infection = #{urinaryTractInfection,jdbcType=INTEGER},
+      sexually_transmitted_disease_history = #{sexuallyTransmittedDiseaseHistory,jdbcType=INTEGER},
+      appendicitis = #{appendicitis,jdbcType=INTEGER},
+      pelvic_infection = #{pelvicInfection,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delflag = #{delflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.df.drs.dao.MedicalRecordDao">
+  <resultMap id="BaseResultMap" type="com.df.drs.model.entity.MedicalRecord">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="patient_id" jdbcType="VARCHAR" property="patientId" />
+    <result column="doctor_id" jdbcType="VARCHAR" property="doctorId" />
+    <result column="assistant_id" jdbcType="VARCHAR" property="assistantId" />
+    <result column="consultation_time" jdbcType="TIMESTAMP" property="consultationTime" />
+    <result column="consultation_stage" jdbcType="INTEGER" property="consultationStage" />
+    <result column="consultation_content" jdbcType="VARCHAR" property="consultationContent" />
+    <result column="handle_opinion" jdbcType="VARCHAR" property="handleOpinion" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="delflag" jdbcType="INTEGER" property="delflag" />
+  </resultMap>
+  <resultMap id="MedicalRecordDTOMap" type="com.df.drs.model.dto.patient.MedicalRecordDTO">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="doctor_name" jdbcType="VARCHAR" property="doctorName" />
+    <result column="assistant_name" jdbcType="VARCHAR" property="assistantName" />
+    <result column="consultation_time" jdbcType="TIMESTAMP" property="consultationTime" />
+    <result column="consultation_stage" jdbcType="INTEGER" property="consultationStage" />
+    <result column="consultation_content" jdbcType="VARCHAR" property="consultationContent" />
+    <result column="handle_opinion" jdbcType="VARCHAR" property="handleOpinion" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, patient_id, doctor_id, assistant_id, consultation_time, consultation_stage, consultation_content, 
+    handle_opinion, create_time, update_time, create_user, update_user, delflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from medical_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPatientId" parameterType="java.lang.String" resultMap="MedicalRecordDTOMap">
+    SELECT
+	mr.id,
+	d.`name` AS doctor_name,
+	da.`name` AS assistant_name,
+	mr.consultation_time,
+	mr.consultation_stage,
+	mr.consultation_content,
+	mr.handle_opinion
+    FROM
+	medical_record mr,
+	doctor d,
+	doctor_assistant da
+    WHERE
+	mr.doctor_id = d.id
+    AND mr.assistant_id = da.id
+    AND mr.delflag = 0
+    AND mr.patient_id = #{patientId}
+    ORDER BY mr.create_time
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from medical_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.df.drs.model.entity.MedicalRecord" useGeneratedKeys="true">
+    insert into medical_record (patient_id, doctor_id, assistant_id, 
+      consultation_time, consultation_stage, 
+      consultation_content, handle_opinion, create_time, 
+      update_time, create_user, update_user, 
+      delflag)
+    values (#{patientId,jdbcType=VARCHAR}, #{doctorId,jdbcType=VARCHAR}, #{assistantId,jdbcType=VARCHAR}, 
+      #{consultationTime,jdbcType=TIMESTAMP}, #{consultationStage,jdbcType=INTEGER}, 
+      #{consultationContent,jdbcType=VARCHAR}, #{handleOpinion,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, 
+      #{delflag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.df.drs.model.entity.MedicalRecord" useGeneratedKeys="true">
+    insert into medical_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="patientId != null">
+        patient_id,
+      </if>
+      <if test="doctorId != null">
+        doctor_id,
+      </if>
+      <if test="assistantId != null">
+        assistant_id,
+      </if>
+      <if test="consultationTime != null">
+        consultation_time,
+      </if>
+      <if test="consultationStage != null">
+        consultation_stage,
+      </if>
+      <if test="consultationContent != null">
+        consultation_content,
+      </if>
+      <if test="handleOpinion != null">
+        handle_opinion,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="delflag != null">
+        delflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="patientId != null">
+        #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorId != null">
+        #{doctorId,jdbcType=VARCHAR},
+      </if>
+      <if test="assistantId != null">
+        #{assistantId,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationTime != null">
+        #{consultationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultationStage != null">
+        #{consultationStage,jdbcType=INTEGER},
+      </if>
+      <if test="consultationContent != null">
+        #{consultationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="handleOpinion != null">
+        #{handleOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.df.drs.model.entity.MedicalRecord">
+    update medical_record
+    <set>
+      <if test="patientId != null">
+        patient_id = #{patientId,jdbcType=VARCHAR},
+      </if>
+      <if test="doctorId != null">
+        doctor_id = #{doctorId,jdbcType=VARCHAR},
+      </if>
+      <if test="assistantId != null">
+        assistant_id = #{assistantId,jdbcType=VARCHAR},
+      </if>
+      <if test="consultationTime != null">
+        consultation_time = #{consultationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="consultationStage != null">
+        consultation_stage = #{consultationStage,jdbcType=INTEGER},
+      </if>
+      <if test="consultationContent != null">
+        consultation_content = #{consultationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="handleOpinion != null">
+        handle_opinion = #{handleOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.df.drs.model.entity.MedicalRecord">
+    update medical_record
+    set patient_id = #{patientId,jdbcType=VARCHAR},
+      doctor_id = #{doctorId,jdbcType=VARCHAR},
+      assistant_id = #{assistantId,jdbcType=VARCHAR},
+      consultation_time = #{consultationTime,jdbcType=TIMESTAMP},
+      consultation_stage = #{consultationStage,jdbcType=INTEGER},
+      consultation_content = #{consultationContent,jdbcType=VARCHAR},
+      handle_opinion = #{handleOpinion,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      delflag = #{delflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
